@@ -61,32 +61,37 @@
   .hero {
     background: var(--wine);
     color: var(--on-wine);
-    padding-block: 40px 56px;
+    padding-block: 48px 56px;
     overflow: hidden;
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr minmax(260px, 380px);
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+    grid-template-rows: auto 1fr;
     grid-template-areas:
-      "mega mega"
+      "mega photo"
       "info photo";
-    column-gap: 40px;
+    column-gap: 48px;
+    row-gap: 32px;
+  }
+  /* The headline is sized to its own column, so it never runs under the photo */
+  .mega-wrap {
+    grid-area: mega;
+    container-type: inline-size;
+    min-width: 0;
   }
   .mega {
-    grid-area: mega;
     margin: 0;
-    font: 900 clamp(46px, 13vw, 164px)/0.9 var(--display);
+    font: 900 clamp(40px, 8vw, 104px)/0.88 var(--display);
+    font-size: 15cqi;
     letter-spacing: -0.045em;
     text-transform: uppercase;
     color: var(--on-wine);
-    position: relative;
-    z-index: 1;
+    white-space: nowrap;
   }
   .hero-photo {
     grid-area: photo;
-    margin: -48px 0 0;
-    position: relative;
-    z-index: 2;
+    margin: 0;
     aspect-ratio: 2 / 3;
     max-width: 100%;
     background: var(--wine-deep);
@@ -103,7 +108,6 @@
     align-self: end;
     display: grid;
     gap: 22px;
-    padding-top: 40px;
   }
   .name {
     margin: 0;
@@ -147,17 +151,17 @@
   .tg svg { width: 18px; height: 18px; flex: none; }
 
   @media (max-width: 760px) {
-    .hero { padding-block: 28px 40px; }
+    .hero { padding-block: 32px 40px; }
     .hero-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
       grid-template-areas: "mega" "photo" "info";
+      row-gap: 28px;
     }
     .hero-photo {
-      margin-top: 24px;
       width: min(100%, 320px);
       justify-self: start;
     }
-    .hero-info { padding-top: 28px; }
   }
 
   /* ---------- Sections ---------- */
@@ -413,7 +417,7 @@
 <body>
 <header class="hero">
   <div class="wrap hero-grid">
-    <h1 class="mega">Портфолио</h1>
+    <div class="mega-wrap"><h1 class="mega">Портфолио</h1></div>
     <figure class="hero-photo">
       <img src="media/photo.jpg" alt="Богдан" width="900" height="1350">
     </figure>
